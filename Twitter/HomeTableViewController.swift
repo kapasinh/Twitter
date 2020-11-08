@@ -42,6 +42,11 @@ class HomeTableViewController: UITableViewController {
         loadTweet()
 
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadTweet()
+    }
 
     // MARK: - Table view data source
     
@@ -54,6 +59,10 @@ class HomeTableViewController: UITableViewController {
         let profileImageUrl = URL(string: (user["profile_image_url"] as? String)!)!
         
         cell.profileImage.af_setImage(withURL: profileImageUrl)
+        
+        cell.setFavorited(isFavorited: tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+        cell.setRetweeted(isRetweeted: tweetArray[indexPath.row]["retweeted"] as! Bool)
         return cell
     }
 
